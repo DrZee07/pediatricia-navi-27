@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Stethoscope, Calculator, Book, Ambulance, Menu, X } from "lucide-react";
+import { Stethoscope, Calculator, Book, Ambulance, Menu, X, BookOpen } from "lucide-react";
 
 const MainNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,6 +10,7 @@ const MainNav = () => {
     { name: "Calculator", icon: <Calculator className="w-5 h-5" />, path: "/calculator" },
     { name: "Emergency", icon: <Ambulance className="w-5 h-5" />, path: "/emergency" },
     { name: "Resources", icon: <Book className="w-5 h-5" />, path: "/resources" },
+    { name: "Journal Club", icon: <BookOpen className="w-5 h-5" />, path: "/journal-club" },
   ];
 
   return (
