@@ -12,6 +12,7 @@ import Calculator from "./pages/Calculator";
 import Emergency from "./pages/Emergency";
 import Resources from "./pages/Resources";
 import JournalClub from "./pages/JournalClub";
+import KnowledgeBase from "./pages/KnowledgeBase";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
               <Route path="/emergency" element={<Emergency />} />
               <Route path="/resources" element={<Resources />} />
               <Route path="/journal-club" element={<JournalClub />} />
+              <Route path="/knowledge-base" element={<KnowledgeBase />} />
             </Routes>
           </main>
         </BrowserRouter>
