@@ -39,10 +39,10 @@
     --background: 222.2 84% 4.9%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 222.2 47.4% 11.2%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 222.2 47.4% 11.2%;
     --popover-foreground: 210 40% 98%;
 
     --primary: 210 100% 35%;
@@ -72,7 +72,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
   }
 
   .gradient-background {
@@ -94,5 +94,13 @@
 
   .page-transition {
     @apply animate-slide-in;
+  }
+
+  .dark .card {
+    @apply bg-card border-border/50;
+  }
+
+  .dark .interactive-button {
+    @apply hover:bg-action/80;
   }
 }
