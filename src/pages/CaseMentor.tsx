@@ -66,12 +66,12 @@ const CaseMentor = () => {
 
       {/* Main Content */}
       <Tabs defaultValue="input" className="space-y-4">
-        <TabsList className="grid w-full grid-cols-5">
-          <TabsTrigger value="input">Case Input</TabsTrigger>
-          <TabsTrigger value="overview">Case Overview</TabsTrigger>
-          <TabsTrigger value="history">History Writing</TabsTrigger>
-          <TabsTrigger value="topic">Topic Preparation</TabsTrigger>
-          <TabsTrigger value="practice">Q&A Practice</TabsTrigger>
+        <TabsList className="w-full grid grid-cols-1 md:grid-cols-5 gap-2">
+          <TabsTrigger value="input" className="px-4 py-2">Case Input</TabsTrigger>
+          <TabsTrigger value="overview" className="px-4 py-2">Case Overview</TabsTrigger>
+          <TabsTrigger value="history" className="px-4 py-2">History Writing</TabsTrigger>
+          <TabsTrigger value="topic" className="px-4 py-2">Topic Preparation</TabsTrigger>
+          <TabsTrigger value="practice" className="px-4 py-2">Q&A Practice</TabsTrigger>
         </TabsList>
 
         {/* Case Input Tab */}
