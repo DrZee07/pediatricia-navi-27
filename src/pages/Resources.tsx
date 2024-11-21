@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Book, Search, BookOpen, GraduationCap, Bookmark, FileText, Video, Link as LinkIcon } from "lucide-react";
+import { Book, Search, BookOpen, GraduationCap, Bookmark, FileText, Video, Link as LinkIcon, Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const Resources = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -13,19 +14,22 @@ const Resources = () => {
       title: "Growth & Development Charts",
       description: "WHO and CDC growth charts with interpretation guidelines",
       type: "document",
-      source: "Nelson Textbook of Pediatrics"
+      source: "Nelson Textbook of Pediatrics",
+      downloadable: true
     },
     {
       title: "Vaccination Schedules",
       description: "Complete immunization schedules by age group",
       type: "document",
-      source: "Nelson Textbook of Pediatrics"
+      source: "Nelson Textbook of Pediatrics",
+      downloadable: true
     },
     {
       title: "Developmental Milestones",
       description: "Comprehensive guide to child development stages",
       type: "document",
-      source: "Nelson Textbook of Pediatrics"
+      source: "Nelson Textbook of Pediatrics",
+      downloadable: true
     }
   ];
 
@@ -33,17 +37,20 @@ const Resources = () => {
     {
       title: "Physical Examination Techniques",
       description: "Step-by-step guide for pediatric physical examination",
-      format: "video"
+      format: "video",
+      duration: "45 mins"
     },
     {
       title: "Common Pediatric Procedures",
       description: "Illustrated guides for common procedures",
-      format: "document"
+      format: "document",
+      pages: 25
     },
     {
       title: "Case Studies Library",
       description: "Collection of educational pediatric cases",
-      format: "interactive"
+      format: "interactive",
+      caseCount: 50
     }
   ];
 
@@ -112,7 +119,14 @@ const Resources = () => {
                         <p className="text-sm text-gray-600">{item.description}</p>
                         <p className="text-xs text-gray-500 mt-2">Source: {item.source}</p>
                       </div>
-                      {getIcon(item.type)}
+                      <div className="flex items-center gap-2">
+                        {getIcon(item.type)}
+                        {item.downloadable && (
+                          <Button variant="ghost" size="icon">
+                            <Download className="w-4 h-4" />
+                          </Button>
+                        )}
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
@@ -131,7 +145,12 @@ const Resources = () => {
                       <div>
                         <h3 className="text-lg font-semibold text-primary mb-1">{item.title}</h3>
                         <p className="text-sm text-gray-600">{item.description}</p>
-                        <p className="text-xs text-gray-500 mt-2">Format: {item.format}</p>
+                        <p className="text-xs text-gray-500 mt-2">
+                          Format: {item.format}
+                          {item.duration && ` • Duration: ${item.duration}`}
+                          {item.pages && ` • Pages: ${item.pages}`}
+                          {item.caseCount && ` • Cases: ${item.caseCount}`}
+                        </p>
                       </div>
                       {getIcon(item.format)}
                     </div>
@@ -142,7 +161,7 @@ const Resources = () => {
           </ScrollArea>
         </TabsContent>
 
-        <TabsContent value="bookmarks" className="mt-6">
+        <TabsContent value="bookmarks">
           <div className="text-center py-8">
             <Bookmark className="w-12 h-12 text-gray-400 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-900">No Bookmarks Yet</h3>

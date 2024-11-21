@@ -1,7 +1,8 @@
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Calendar, Users, MessageSquare, Star } from "lucide-react";
+import { BookOpen, Calendar, Users, MessageSquare, Star, Clock, ArrowUpRight } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 const JournalClub = () => {
   const articles = [
@@ -12,7 +13,8 @@ const JournalClub = () => {
       summary: "Latest developments in vaccination schedules and new vaccine technologies.",
       impact: "High",
       citations: 45,
-      discussionCount: 12
+      discussionCount: 12,
+      tags: ["Vaccination", "Immunology"]
     },
     {
       title: "Management of Childhood Asthma",
@@ -21,7 +23,8 @@ const JournalClub = () => {
       summary: "Updated guidelines for asthma management in children.",
       impact: "High",
       citations: 38,
-      discussionCount: 8
+      discussionCount: 8,
+      tags: ["Respiratory", "Guidelines"]
     },
     {
       title: "Early Detection of Developmental Delays",
@@ -30,7 +33,8 @@ const JournalClub = () => {
       summary: "New screening tools and intervention strategies.",
       impact: "Medium",
       citations: 27,
-      discussionCount: 15
+      discussionCount: 15,
+      tags: ["Development", "Screening"]
     }
   ];
 
@@ -39,13 +43,17 @@ const JournalClub = () => {
       title: "Pediatric COVID-19 Long-Term Effects",
       date: "Next Tuesday, 2:00 PM",
       participants: 12,
-      status: "Open for Registration"
+      status: "Open for Registration",
+      presenter: "Dr. Sarah Johnson",
+      location: "Virtual Meeting"
     },
     {
       title: "Neonatal Sepsis Management",
       date: "Friday, 3:30 PM",
       participants: 8,
-      status: "Registration Closed"
+      status: "Registration Closed",
+      presenter: "Dr. Michael Chen",
+      location: "Conference Room A"
     }
   ];
 
@@ -64,7 +72,7 @@ const JournalClub = () => {
       </p>
 
       <Tabs defaultValue="latest" className="w-full">
-        <TabsList>
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="latest">Latest Articles</TabsTrigger>
           <TabsTrigger value="discussions">Upcoming Discussions</TabsTrigger>
           <TabsTrigger value="favorites">My Favorites</TabsTrigger>
@@ -74,13 +82,23 @@ const JournalClub = () => {
           {articles.map((article, index) => (
             <Card key={index} className="p-6 hover:shadow-lg transition-shadow duration-200">
               <div className="flex justify-between items-start">
-                <div className="space-y-2">
-                  <h2 className="text-xl font-semibold text-primary">{article.title}</h2>
+                <div className="space-y-2 flex-1">
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-xl font-semibold text-primary">{article.title}</h2>
+                    <Button variant="ghost" size="icon">
+                      <Star className="w-4 h-4" />
+                    </Button>
+                  </div>
                   <div className="text-sm text-gray-500">
                     {article.journal} • {article.date}
                   </div>
                   <p className="text-gray-600">{article.summary}</p>
-                  <div className="flex items-center gap-4 text-sm text-gray-500">
+                  <div className="flex flex-wrap gap-2 mt-2">
+                    {article.tags.map((tag) => (
+                      <Badge key={tag} variant="secondary">{tag}</Badge>
+                    ))}
+                  </div>
+                  <div className="flex items-center gap-4 text-sm text-gray-500 mt-4">
                     <span className="flex items-center gap-1">
                       <Star className="w-4 h-4" />
                       Impact: {article.impact}
@@ -95,9 +113,6 @@ const JournalClub = () => {
                     </span>
                   </div>
                 </div>
-                <Button variant="outline" size="sm">
-                  Read More
-                </Button>
               </div>
             </Card>
           ))}
@@ -109,17 +124,29 @@ const JournalClub = () => {
               <div className="flex justify-between items-start">
                 <div className="space-y-2">
                   <h2 className="text-xl font-semibold text-primary">{discussion.title}</h2>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <Calendar className="w-4 h-4" />
-                    {discussion.date}
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-gray-500">
-                    <Users className="w-4 h-4" />
-                    {discussion.participants} participants
+                  <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <Calendar className="w-4 h-4" />
+                      {discussion.date}
+                    </div>
+                    <div className="flex items-center gap-2 text-sm text-gray-500">
+                      <Users className="w-4 h-4" />
+                      {discussion.participants} participants
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      Presenter: {discussion.presenter}
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      Location: {discussion.location}
+                    </div>
                   </div>
                 </div>
-                <Button variant={discussion.status === "Open for Registration" ? "default" : "secondary"}>
+                <Button 
+                  variant={discussion.status === "Open for Registration" ? "default" : "secondary"}
+                  className="flex items-center gap-2"
+                >
                   {discussion.status}
+                  {discussion.status === "Open for Registration" && <ArrowUpRight className="w-4 h-4" />}
                 </Button>
               </div>
             </Card>

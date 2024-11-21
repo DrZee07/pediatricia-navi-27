@@ -2,7 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Ambulance, Heart, Lungs, AlertTriangle, Brain, Search, Clock } from "lucide-react";
+import { Ambulance, Heart, Stethoscope, AlertTriangle, Brain, Search, Clock } from "lucide-react";
 
 const Emergency = () => {
   const protocols = [
@@ -61,7 +61,7 @@ const Emergency = () => {
       case "Resuscitation":
         return <Heart className="w-5 h-5 text-red-500" />;
       case "Respiratory":
-        return <Lungs className="w-5 h-5 text-blue-500" />;
+        return <Stethoscope className="w-5 h-5 text-blue-500" />;
       case "Neurological":
         return <Brain className="w-5 h-5 text-purple-500" />;
       case "Allergic":
@@ -74,7 +74,7 @@ const Emergency = () => {
   return (
     <div className="animate-fade-in">
       <div className="flex items-center gap-4 mb-6">
-        <Ambulance className="w-8 h-8 text-destructive" />
+        <Ambulance className="w-8 h-8 text-destructive animate-pulse" />
         <h1 className="text-3xl font-bold text-gray-900">
           Emergency Protocols
         </h1>
@@ -92,7 +92,7 @@ const Emergency = () => {
       </div>
 
       <Tabs defaultValue="all" className="w-full">
-        <TabsList>
+        <TabsList className="grid grid-cols-4 mb-4">
           <TabsTrigger value="all">All Protocols</TabsTrigger>
           <TabsTrigger value="critical">Critical</TabsTrigger>
           <TabsTrigger value="urgent">Urgent</TabsTrigger>
@@ -151,15 +151,15 @@ const Emergency = () => {
         <TabsContent value="critical">
           <div className="grid md:grid-cols-2 gap-6">
             {protocols.filter(p => p.urgency === "Critical").map((protocol, index) => (
-          <Card
-            key={protocol.title}
-            className="p-6 hover:shadow-lg transition-shadow duration-200 cursor-pointer"
-          >
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
-              {protocol.title}
-            </h2>
-            <p className="text-gray-600">{protocol.description}</p>
-          </Card>
+              <Card
+                key={protocol.title}
+                className="p-6 hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+              >
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                  {protocol.title}
+                </h2>
+                <p className="text-gray-600">{protocol.description}</p>
+              </Card>
             ))}
           </div>
         </TabsContent>
@@ -167,15 +167,15 @@ const Emergency = () => {
         <TabsContent value="urgent">
           <div className="grid md:grid-cols-2 gap-6">
             {protocols.filter(p => p.urgency === "Urgent").map((protocol, index) => (
-          <Card
-            key={protocol.title}
-            className="p-6 hover:shadow-lg transition-shadow duration-200 cursor-pointer"
-          >
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">
-              {protocol.title}
-            </h2>
-            <p className="text-gray-600">{protocol.description}</p>
-          </Card>
+              <Card
+                key={protocol.title}
+                className="p-6 hover:shadow-lg transition-shadow duration-200 cursor-pointer"
+              >
+                <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                  {protocol.title}
+                </h2>
+                <p className="text-gray-600">{protocol.description}</p>
+              </Card>
             ))}
           </div>
         </TabsContent>
