@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Stethoscope, Calculator, Book, Ambulance, Menu, X, BookOpen } from "lucide-react";
+import { Stethoscope, Calculator, Book, Ambulance, Menu, X, BookOpen, LogIn } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const MainNav = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -38,6 +39,12 @@ const MainNav = () => {
                 <span className="ml-2">{item.name}</span>
               </Link>
             ))}
+            <Link to="/auth">
+              <Button variant="outline" size="sm" className="ml-4">
+                <LogIn className="w-4 h-4 mr-2" />
+                Sign In
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile menu button */}
@@ -67,6 +74,14 @@ const MainNav = () => {
                 <span className="ml-2">{item.name}</span>
               </Link>
             ))}
+            <Link
+              to="/auth"
+              className="flex items-center px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50"
+              onClick={() => setIsOpen(false)}
+            >
+              <LogIn className="w-5 h-5" />
+              <span className="ml-2">Sign In</span>
+            </Link>
           </div>
         </div>
       )}

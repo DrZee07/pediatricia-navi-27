@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./components/ThemeProvider";
 import MainNav from "./components/MainNav";
 import Index from "./pages/Index";
+import Auth from "./pages/Auth";
 import Diagnosis from "./pages/Diagnosis";
 import Calculator from "./pages/Calculator";
 import Emergency from "./pages/Emergency";
@@ -25,6 +26,7 @@ const App = () => (
           <main className="container mx-auto px-4 py-8">
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/auth" element={<Auth />} />
               <Route path="/diagnosis" element={<Diagnosis />} />
               <Route path="/calculator" element={<Calculator />} />
               <Route path="/emergency" element={<Emergency />} />
