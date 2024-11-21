@@ -13,6 +13,7 @@ import Emergency from "./pages/Emergency";
 import Resources from "./pages/Resources";
 import JournalClub from "./pages/JournalClub";
 import KnowledgeBase from "./pages/KnowledgeBase";
+import CaseMentor from "./pages/CaseMentor";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/resources" element={<Resources />} />
               <Route path="/journal-club" element={<JournalClub />} />
               <Route path="/knowledge-base" element={<KnowledgeBase />} />
+              <Route path="/case-mentor" element={<CaseMentor />} />
             </Routes>
           </main>
         </BrowserRouter>
