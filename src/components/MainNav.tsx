@@ -18,7 +18,10 @@ const MainNav = () => {
         <div className="flex justify-between h-16">
           <div className="flex">
             <Link to="/" className="flex-shrink-0 flex items-center">
-              <span className="text-primary font-bold text-xl">NelsonAssist-AI</span>
+              <div className="animate-fade-in flex items-center">
+                <Stethoscope className="w-8 h-8 text-primary animate-[spin_3s_ease-in-out_infinite]" />
+                <span className="text-primary font-bold text-xl ml-2">NelsonAssist-AI</span>
+              </div>
             </Link>
           </div>
 
