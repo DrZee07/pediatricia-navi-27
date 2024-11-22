@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Plus, FolderCheck, Play, Book, FileText } from "lucide-react";
 import { useToast } from "@/components/ui/use-toast";
 import { CaseMentorTabs } from "@/components/case-mentor/CaseMentorTabs";
+import { AIChatbot } from "@/components/ai-chat/AIChatbot";
 
 const CaseMentor = () => {
   const { toast } = useToast();
@@ -60,10 +61,17 @@ const CaseMentor = () => {
       </div>
 
       {/* Main Content */}
-      <CaseMentorTabs />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2">
+          <CaseMentorTabs />
+        </div>
+        <div className="lg:col-span-1">
+          <AIChatbot />
+        </div>
+      </div>
 
       {/* Sidebar - Optional */}
-      <div className="hidden lg:block fixed right-4 top-24 w-64 space-y-4">
+      <div className="hidden xl:block fixed right-4 top-24 w-64 space-y-4">
         <Card>
           <CardContent className="p-4">
             <h3 className="font-medium mb-2">Quick Links</h3>
