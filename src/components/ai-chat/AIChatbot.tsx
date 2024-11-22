@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Send, Bot } from "lucide-react";
@@ -70,60 +70,63 @@ export const AIChatbot = () => {
   };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Bot className="w-6 h-6 text-primary" />
-          Pediatric AI Assistant
-        </CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          <div className="h-[400px] overflow-y-auto space-y-4 p-4 border rounded-md">
-            {messages.map((message, index) => (
-              <div
-                key={index}
-                className={`flex ${
-                  message.role === "user" ? "justify-end" : "justify-start"
-                }`}
-              >
-                <div
-                  className={`max-w-[80%] p-3 rounded-lg ${
-                    message.role === "user"
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-muted"
-                  }`}
-                >
-                  {message.content}
-                </div>
-              </div>
-            ))}
-            {isLoading && (
-              <div className="flex justify-start">
-                <div className="max-w-[80%] p-3 rounded-lg bg-muted animate-pulse">
-                  Thinking...
-                </div>
-              </div>
-            )}
-          </div>
-          <form onSubmit={handleSubmit} className="flex gap-2">
-            <Textarea
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              placeholder="Ask a question about pediatric care..."
-              className="flex-1"
-              rows={2}
-            />
-            <Button
-              type="submit"
-              disabled={isLoading || !input.trim()}
-              className="self-end"
+    <div className="flex flex-col h-full">
+      <div className="flex items-center gap-2 p-4 border-b">
+        <Bot className="w-6 h-6 text-primary" />
+        <h1 className="text-xl font-semibold">Pediatric AI Assistant</h1>
+      </div>
+
+      <div className="flex-1 overflow-y-auto flex flex-col-reverse p-4 space-y-reverse space-y-4">
+        {messages.map((message, index) => (
+          <div
+            key={index}
+            className={`flex ${
+              message.role === "user" ? "justify-end" : "justify-start"
+            } animate-fade-in`}
+          >
+            <div
+              className={`max-w-[80%] p-3 rounded-lg ${
+                message.role === "user"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted"
+              }`}
             >
-              <Send className="w-4 h-4" />
-            </Button>
-          </form>
-        </div>
-      </CardContent>
-    </Card>
+              {message.content}
+            </div>
+          </div>
+        ))}
+        {isLoading && (
+          <div className="flex justify-start">
+            <div className="max-w-[80%] p-3 rounded-lg bg-muted animate-pulse">
+              Thinking...
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="border-t p-4">
+        <form onSubmit={handleSubmit} className="flex gap-2">
+          <Textarea
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Ask a question about pediatric care..."
+            className="flex-1 min-h-[60px] max-h-[120px]"
+            onKeyDown={(e) => {
+              if (e.key === "Enter" && !e.shiftKey) {
+                e.preventDefault();
+                handleSubmit(e);
+              }
+            }}
+          />
+          <Button
+            type="submit"
+            disabled={isLoading || !input.trim()}
+            className="self-end"
+          >
+            <Send className="w-4 h-4" />
+          </Button>
+        </form>
+      </div>
+    </div>
   );
 };
