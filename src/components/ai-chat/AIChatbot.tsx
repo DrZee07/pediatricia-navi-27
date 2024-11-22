@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Send, Bot } from "lucide-react";
+import { useQuery } from "@tanstack/react-query";
 
 const API_URL = "https://api-inference.huggingface.co/models/openai-community/gpt2";
 const API_KEY = "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";
@@ -13,16 +13,38 @@ interface Message {
   content: string;
 }
 
+interface KnowledgeBaseEntry {
+  id: string;
+  title: string;
+  content: string;
+}
+
 export const AIChatbot = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
+  // Fetch knowledge base entries
+  const { data: knowledgeBase } = useQuery({
+    queryKey: ['knowledgeBase'],
+    queryFn: async (): Promise<KnowledgeBaseEntry[]> => {
+      // This should be replaced with your actual API endpoint
+      const response = await fetch('/api/knowledge-base');
+      if (!response.ok) {
+        throw new Error('Failed to fetch knowledge base');
+      }
+      return response.json();
+    },
+  });
+
   const systemPrompt = `You are a knowledgeable assistant specialized in pediatric healthcare. 
+    Use the following knowledge base entries to inform your responses:
+    ${knowledgeBase?.map(entry => `${entry.title}: ${entry.content}`).join('\n')}
+    
     Provide accurate, concise, and empathetic answers to user questions. 
     Ensure your responses are easy to understand and tailored to the needs of parents and caregivers. 
-    Cite reliable sources if necessary.`;
+    Only use information from the authorized knowledge base.`;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -34,6 +56,7 @@ export const AIChatbot = () => {
     setIsLoading(true);
 
     try {
+      console.log("Sending request with knowledge base context");
       const response = await fetch(API_URL, {
         method: "POST",
         headers: {

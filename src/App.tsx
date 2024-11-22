@@ -14,6 +14,7 @@ import Resources from "./pages/Resources";
 import JournalClub from "./pages/JournalClub";
 import KnowledgeBase from "./pages/KnowledgeBase";
 import CaseMentor from "./pages/CaseMentor";
+import ChatBot from "./pages/ChatBot";
 
 const queryClient = new QueryClient();
 
@@ -36,6 +37,7 @@ const App = () => (
               <Route path="/journal-club" element={<JournalClub />} />
               <Route path="/knowledge-base" element={<KnowledgeBase />} />
               <Route path="/case-mentor" element={<CaseMentor />} />
+              <Route path="/chatbot" element={<ChatBot />} />
             </Routes>
           </main>
         </BrowserRouter>
