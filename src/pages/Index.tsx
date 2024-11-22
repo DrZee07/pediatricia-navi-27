@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Stethoscope, Calculator, Book, Ambulance } from "lucide-react";
+import { Stethoscope, Calculator, Book, Ambulance, Bot } from "lucide-react";
 
 const Index = () => {
   const features = [
@@ -10,19 +10,19 @@ const Index = () => {
       path: "/diagnosis",
     },
     {
-      title: "Drug Calculator",
+      title: "Calculator",
       description: "Pediatric medication dosage calculator",
       icon: <Calculator className="w-12 h-12 text-primary" />,
       path: "/calculator",
     },
     {
-      title: "Emergency Protocols",
+      title: "Emergency",
       description: "Quick access to emergency guidelines",
       icon: <Ambulance className="w-12 h-12 text-primary" />,
       path: "/emergency",
     },
     {
-      title: "Learning Resources",
+      title: "Resources",
       description: "Case-based learning and reference materials",
       icon: <Book className="w-12 h-12 text-primary" />,
       path: "/resources",
@@ -39,6 +39,21 @@ const Index = () => {
           Your intelligent companion for pediatric healthcare, powered by the Nelson
           Textbook of Pediatrics
         </p>
+        <div className="mt-6 bg-primary/5 p-6 rounded-lg max-w-2xl mx-auto">
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <Bot className="w-8 h-8 text-primary" />
+            <h2 className="text-2xl font-semibold text-primary">Pediatric Knowledge at Your Fingertips</h2>
+          </div>
+          <p className="text-gray-700">
+            Access instant, AI-powered pediatric expertise anytime, anywhere. Our AI Assistant helps you make informed decisions with reliable, evidence-based information from the Nelson Textbook of Pediatrics.
+          </p>
+          <Link 
+            to="/ai-assistant" 
+            className="inline-block mt-4 px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors"
+          >
+            Chat with AI Assistant
+          </Link>
+        </div>
       </section>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
