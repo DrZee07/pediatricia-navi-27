@@ -4,18 +4,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
 import { Send, Bot } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-
-const API_URL = "https://api-inference.huggingface.co/models/openai-community/gpt2";
-const API_KEY = "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";
+import { fetchKnowledgeBase } from "@/services/api";
+import { KnowledgeBaseEntry } from "@/types/knowledge";
 
 interface Message {
   role: "user" | "assistant";
-  content: string;
-}
-
-interface KnowledgeBaseEntry {
-  id: string;
-  title: string;
   content: string;
 }
 
@@ -26,16 +19,9 @@ export const AIChatbot = () => {
   const { toast } = useToast();
 
   // Fetch knowledge base entries
-  const { data: knowledgeBase } = useQuery({
+  const { data: knowledgeBase, isError } = useQuery({
     queryKey: ['knowledgeBase'],
-    queryFn: async (): Promise<KnowledgeBaseEntry[]> => {
-      // This should be replaced with your actual API endpoint
-      const response = await fetch('/api/knowledge-base');
-      if (!response.ok) {
-        throw new Error('Failed to fetch knowledge base');
-      }
-      return response.json();
-    },
+    queryFn: fetchKnowledgeBase,
   });
 
   const systemPrompt = `You are a knowledgeable assistant specialized in pediatric healthcare. 
@@ -56,12 +42,16 @@ export const AIChatbot = () => {
     setIsLoading(true);
 
     try {
-      console.log("Sending request with knowledge base context");
-      const response = await fetch(API_URL, {
+      console.log("Sending request with knowledge base context:", { 
+        messageCount: messages.length + 1,
+        knowledgeBaseSize: knowledgeBase?.length
+      });
+
+      const response = await fetch("https://api-inference.huggingface.co/models/openai-community/gpt2", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${API_KEY}`,
+          Authorization: `Bearer ${process.env.HUGGING_FACE_API_KEY || "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"}`,
         },
         body: JSON.stringify({
           inputs: `${systemPrompt}\n\nUser: ${input}\nAssistant:`,
@@ -79,7 +69,7 @@ export const AIChatbot = () => {
       };
 
       setMessages((prev) => [...prev, aiMessage]);
-      console.log("AI Response received:", aiMessage);
+      console.log("AI Response received:", { messageId: messages.length + 2 });
     } catch (error) {
       console.error("Error in AI chat:", error);
       toast({
